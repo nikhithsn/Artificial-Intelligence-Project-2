@@ -1,21 +1,21 @@
 public class Driver 
 {
-    private static int[] bot1MovesTaken = new int[150];
-    private static int[] bot2MovesTaken = new int[150];
-    private static int[] bot3MovesTaken = new int[150];
+    private static int[] bot1MovesTaken = new int[60];
+    private static int[] bot2MovesTaken = new int[60];
+    private static int[] bot3MovesTaken = new int[60];
 
     public static void main(String[] args) 
     {
         // Reminder: make a for loop to run multiple times, 
 
-        for (int i = 0; i < 3; i += 3) //TEMP ALTER LOOP
+        for (int i = 0; i < 3; i += 1) //TEMP ALTERED LOOP
         {
-            System.out.println("loop 1: " + i);
+            //System.out.println("loop 1: " + i);
             double iterationAlpha = 0;
 
-            for (int j = 0; j < 50; j ++)
+            for (int j = 0; j < 20; j ++) //TEMP ALTERED LOOP
             {
-                System.out.println("loop 2: " + j);
+                //System.out.println("loop 2: " + j);
                 iterationAlpha += 0.01;
                 int bot1MoveCounter = 0;
                 int bot2MoveCounter = 0;
@@ -65,18 +65,18 @@ public class Driver
                 // Reminder: Simulate and compare the bots
                 // Implement the required analysis
                 // Finish move counter
-                while (!bot1.hasFoundMouse() || !bot2.hasFoundMouse() || !bot3.hasFoundMouse())
+                while (!bot1.hasFoundMouse() || !bot2.hasFoundMouse() || !bot3.hasFoundMouse()) // || !bot2.hasFoundMouse() || !bot3.hasFoundMouse()
                 {
                     //System.out.println("Checking bots:");
-                    System.out.println("Bot1 found mouse: " + bot1.hasFoundMouse());
-                    System.out.println("Bot2 found mouse: " + bot2.hasFoundMouse());
-                    System.out.println("Bot3 found mouse: " + bot3.hasFoundMouse());
-                    System.out.println("loop 3");
+                    //System.out.println("Bot1 found mouse: " + bot1.hasFoundMouse());
+                    //System.out.println("Bot2 found mouse: " + bot2.hasFoundMouse());
+                    //System.out.println("Bot3 found mouse: " + bot3.hasFoundMouse());
+                    //System.out.println("loop 3");
                     if (!bot1.hasFoundMouse())
                     {
                         //System.out.println(j);
-                        System.out.println("Bot 1 is at " + bot1.x + ", " + bot1.y);
-                        System.out.println("Mouse 1 is at " + grid1.getMouse().getX() + ", " + grid1.getMouse().getY());
+                        //System.out.println("Bot 1 is at " + bot1.x + ", " + bot1.y);
+                        //System.out.println("Mouse 1 is at " + grid1.getMouse().getX() + ", " + grid1.getMouse().getY());
                         bot1.executeStrategy();
                         grid1.getMouse().move();
 
@@ -86,8 +86,8 @@ public class Driver
                     if (!bot2.hasFoundMouse())
                     {
                         //System.out.println(j);
-                        System.out.println("Bot 2 is at " + bot2.x + ", " + bot2.y);
-                        System.out.println("Mouse 2 is at " + grid2.getMouse().getX() + ", " + grid2.getMouse().getY());
+                        //System.out.println("Bot 2 is at " + bot2.x + ", " + bot2.y);
+                        //System.out.println("Mouse 2 is at " + grid2.getMouse().getX() + ", " + grid2.getMouse().getY());
                         bot2.executeStrategy();
                         grid2.getMouse().move();
 
@@ -97,18 +97,18 @@ public class Driver
                     if (!bot3.hasFoundMouse())
                     {
                         //System.out.println(j);
-                        System.out.println("Bot 3 is at " + bot3.x + ", " + bot3.y);
-                        System.out.println("Mouse 3 is at " + grid3.getMouse().getX() + ", " + grid3.getMouse().getY());
+                        //System.out.println("Bot 3 is at " + bot3.x + ", " + bot3.y);
+                        //System.out.println("Mouse 3 is at " + grid3.getMouse().getX() + ", " + grid3.getMouse().getY());
                         bot3.executeStrategy();
                         grid3.getMouse().move();
 
-                        bot2MoveCounter ++;
-                    }
+                        bot3MoveCounter ++;
+                    } 
                 }
 
-                bot1MovesTaken[(i * 50) + j] = bot1MoveCounter;
-                bot2MovesTaken[(i * 50) + j] = bot2MoveCounter;
-                bot3MovesTaken[(i * 50) + j] = bot3MoveCounter;
+                bot1MovesTaken[(i * 20) + j] = bot1MoveCounter;
+                bot2MovesTaken[(i * 20) + j] = bot2MoveCounter;
+                bot3MovesTaken[(i * 20) + j] = bot3MoveCounter;
 
             }
         }
@@ -118,50 +118,60 @@ public class Driver
 
     public static void printResults()
     {
-        for (int i = 0; i < 3; i ++)
+        System.out.println();
+        System.out.println("EXPERIMENT RESULTS:");
+        System.out.println("--------------------");
+
+        for (int i = 0; i < 3; i ++) // TEMP CHANGED i < 1 from i < 3
         {
             if (i == 0)
             {
+                System.out.println();
                 System.out.println("Bot 1 | Moves Taken Table:");
             }
             else if (i == 1)
             {
+                System.out.println();
                 System.out.println("Bot 2 | Moves Taken Table:");
             }
             else
             {
+                System.out.println();
                 System.out.println("Bot 3 | Moves Taken Table:");    
             }
 
-            for (int j = 0; j < 150; j ++)
+            for (int j = 0; j < 60; j ++)
             {
                 if (j == 0)
                 {
+                    System.out.println();
                     System.out.println("Trial 1 ~ Stationary Mouse");
                     System.out.println();
                 }
-                else if (j == 50)
+                else if (j == 20)
                 {
+                    System.out.println();
                     System.out.println("Trial 2 ~ Moving Mouse");
                     System.out.println();
                 }
-                else if (j == 100)
+                else if (j == 40)
                 {
-                    System.out.println("Trial 1 ~ 2 Moving Mice");
+                    System.out.println();
+                    System.out.println("Trial 3 ~ 2 Moving Mice");
                     System.out.println();
                 }
 
                 if (i == 0)
                 {
-                    System.out.print(bot1MovesTaken[j]);
+                    System.out.print(bot1MovesTaken[j] + ", ");
                 }
                 else if (i == 1)
                 {
-                    System.out.print(bot2MovesTaken[j]);
+                    System.out.print(bot2MovesTaken[j] + ", ");
                 }
                 else
                 {
-                    System.out.print(bot3MovesTaken[j]);
+                    System.out.print(bot3MovesTaken[j] + ", ");
                 }
             }
         }
