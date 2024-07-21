@@ -64,9 +64,10 @@ public class bot2 extends Bot
             for (int j = 0; j < grid.getSize(); j++) 
             {
                 int manhattanDistance = Math.abs(i - targetX) + Math.abs(j - targetY);
-                probabilities[i][j] = manhattanDistance;
+                probabilities[i][j] = Math.exp(-alpha * (manhattanDistance - 1));
             }
         }
+
         return probabilities;
     }
 
@@ -74,23 +75,23 @@ public class bot2 extends Bot
     {
         int bestX = x;
         int bestY = y;
-        double highestProb = 100;
+        double highestProb = probabilities[bestX][bestY];
 
         int[][] directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
         for (int[] dir : directions) 
         {
             int newX = x + dir[0];
             int newY = y + dir[1];
-            if (newX >= 0 && newX < grid.getSize() && newY >= 0 && newY < grid.getSize() && probabilities[newX][newY] < highestProb) 
+            if (newX >= 0 && newX < grid.getSize() && newY >= 0 && newY < grid.getSize() && probabilities[newX][newY] > highestProb) 
             {
-                System.out.println("Bot 2 - Found best move: condition satisfied");
+                //System.out.println("Bot 2 - Found best move: condition satisfied");
                 highestProb = probabilities[newX][newY];
                 bestX = newX;
                 bestY = newY;
             }
         }
 
-        System.out.println("Bot 2 - Found best move:" + bestX + ", " + bestY);
+        //System.out.println("Bot 2 - Found best move:" + bestX + ", " + bestY);
         return new int[] { bestX, bestY };
     }
 }
