@@ -47,32 +47,66 @@ public class bot3 extends Bot
 
     @Override
     public void executeStrategy() 
-    {    
-        if (!moveTurn) 
+    {   
+        int manhattanDistance = Math.abs(x - targetX) + Math.abs(y - targetY);
+
+        if (manhattanDistance > 25)
+        {
+            if (!moveTurn) 
+            {
+                if (sense())
+                {
+                    targetX = grid.getMouse().getX();
+                    targetY = grid.getMouse().getY();
+                    probabilities = calculateProbabilities();
+                    //System.out.println("Sensed mouse at (" + targetX + ", " + targetY + ")");
+                }
+            } 
+            else 
+            {
+                move();
+                //System.out.println("Moving to (" + x + ", " + y + ")");
+                //System.out.println("Sensed mouse at (" + targetX + ", " + targetY + ")");
+            }
+
+        
+            if (shouldMove())
+            {
+                moveTurn = true;
+                probabilities = calculateProbabilities();
+            }
+            else
+            {
+                moveTurn = false;
+            }
+        }
+        else
+        {
+            if (!moveTurn)
         {
             if (sense())
             {
                 targetX = grid.getMouse().getX();
                 targetY = grid.getMouse().getY();
                 probabilities = calculateProbabilities();
+                moveTurn = true;
                 //System.out.println("Sensed mouse at (" + targetX + ", " + targetY + ")");
             }
-        } 
-        else 
+        }
+        else
         {
             move();
             //System.out.println("Moving to (" + x + ", " + y + ")");
             //System.out.println("Sensed mouse at (" + targetX + ", " + targetY + ")");
+            if (grid.getCell(x, y) == grid.getCell(targetX, targetY))
+            {
+                moveTurn = false;
+            }
+            else
+            {
+                probabilities = calculateProbabilities();
+            }
         }
-
-        if (shouldMove())
-        {
-            moveTurn = true;
-            probabilities = calculateProbabilities();
-        }
-        else
-        {
-            moveTurn = false;
         }
     }
 
@@ -100,7 +134,6 @@ public class bot3 extends Bot
 
         // Strategy: Prioritize moving if there have been few recent successful beep occurances 
             // Exception: if there have  been no beeps, which means the bot still needs direction
-            // Exception: if the last 5 scans have all resulted in successful beeps, which means the bot is most likely extremely near
         double averageBeepOccurance = (double) beepCount / senseHistory.size();
         int manhattanDistance = Math.abs(x - targetX) + Math.abs(y - targetY);
 
