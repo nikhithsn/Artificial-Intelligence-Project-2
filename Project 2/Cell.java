@@ -1,15 +1,19 @@
-public class Cell {
+public class Cell 
+{
     private boolean hasMouse;
 
-    public Cell() {
+    public Cell() 
+    {
         this.hasMouse = false;
     }
 
-    public boolean hasMouse() {
+    public boolean hasMouse() 
+    {
         return hasMouse;
     }
 
-    public void setMouse(boolean hasMouse) {
+    public void setMouse(boolean hasMouse) 
+    {
         this.hasMouse = hasMouse;
     }
 }
