@@ -14,7 +14,7 @@ public class bot1 extends Bot
     @Override
     public void move() 
     {
-        probabilities = calculateProbabilities();
+        //probabilities = calculateProbabilities();
         int[] bestMove = findBestMove(probabilities);
         setPosition(bestMove[0], bestMove[1]);
     }
@@ -75,9 +75,10 @@ public class bot1 extends Bot
             for (int j = 0; j < grid.getSize(); j++) 
             {
                 int manhattanDistance = Math.abs(i - targetX) + Math.abs(j - targetY);
-                probabilities[i][j] = manhattanDistance;
+                probabilities[i][j] = Math.exp(-alpha * (manhattanDistance - 1));
             }
         }
+
         return probabilities;
     }
 
@@ -85,14 +86,14 @@ public class bot1 extends Bot
     {
         int bestX = x;
         int bestY = y;
-        double highestProb = 100;
+        double highestProb = probabilities[bestX][bestY];
 
         int[][] directions = { {0, 1}, {1, 0}, {0, -1}, {-1, 0} };
         for (int[] dir : directions) 
         {
             int newX = x + dir[0];
             int newY = y + dir[1];
-            if (newX >= 0 && newX < grid.getSize() && newY >= 0 && newY < grid.getSize() && probabilities[newX][newY] < highestProb) 
+            if (newX >= 0 && newX < grid.getSize() && newY >= 0 && newY < grid.getSize() && probabilities[newX][newY] > highestProb) 
             {
                 highestProb = probabilities[newX][newY];
                 bestX = newX;
@@ -100,7 +101,7 @@ public class bot1 extends Bot
             }
         }
 
-        System.out.println("Bot 1 - Found best move:" + bestX + ", " + bestY);
+        //System.out.println("Bot 1 - Found best move:" + bestX + ", " + bestY);
         return new int[] { bestX, bestY };
     }
 }
